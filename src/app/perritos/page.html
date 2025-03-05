@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perritos Random</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="w-full max-w-md p-4 bg-white shadow-lg rounded-lg">
+        <div id="image-container" class="w-full h-64 flex justify-center items-center bg-gray-200 rounded-xl">
+            <div id="spinner" class="hidden animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+            <img id="dog-image" src="" alt="Perrito" class="hidden w-full h-full object-cover rounded-xl">
+        </div>
+        <button id="fetch-dog" class="w-full mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+            Actualizar
+        </button>
+    </div>
+
+    <script>
+        const fetchDogButton = document.getElementById("fetch-dog");
+        const imageContainer = document.getElementById("image-container");
+        const dogImage = document.getElementById("dog-image");
+        const spinner = document.getElementById("spinner");
+
+        async function fetchDog() {
+            fetchDogButton.disabled = true;
+            dogImage.classList.add("hidden");
+            spinner.classList.remove("hidden");
+
+            try {
+                const response = await fetch("https://dog.ceo/api/breeds/image/random");
+                const data = await response.json();
+                dogImage.src = data.message;
+                dogImage.classList.remove("hidden");
+            } catch (error) {
+                console.error("Error al obtener la imagen del perrito:", error);
+            } finally {
+                spinner.classList.add("hidden");
+                fetchDogButton.disabled = false;
+            }
+        }
+
+        fetchDogButton.addEventListener("click", fetchDog);
+        fetchDog(); // Cargar una imagen al inicio
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Envío</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="border p-4 w-full max-w-xs rounded-md flex flex-col border-gray-300 bg-white shadow-lg">
+        <label for="weight">Peso</label>
+        <input type="number" id="weight" placeholder="Kg" class="mb-2 border p-2 border-gray-200 rounded-md">
+
+        <label for="distance">Distancia</label>
+        <input type="number" id="distance" placeholder="Km" class="mb-2 border p-2 border-gray-200 rounded-md">
+
+        <label for="tiempo">Tipo de Entrega</label>
+        <select id="tiempo" class="mb-2 border p-2 border-gray-200 rounded-md">
+            <option value="">Seleccione</option>
+            <option value="normal">Normal</option>
+            <option value="rapida">Rápida</option>
+            <option value="express">Express</option>
+            <option value="superexpress">Super Express</option>
+        </select>
+
+        <button id="calculate-btn" class="border bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700">
+            Calcular
+        </button>
+
+        <h1 id="result" class="mt-4 text-lg font-bold">$ 0.00</h1>
+    </div>
+
+    <script>
+        const bases = {
+            normal: 1,
+            rapida: 2,
+            express: 2.5,
+            superexpress: 3,
+        };
+
+        document.getElementById("calculate-btn").addEventListener("click", () => {
+            const weight = Number(document.getElementById("weight").value);
+            const distance = Number(document.getElementById("distance").value);
+            const tiempo = document.getElementById("tiempo").value;
+            const resultElement = document.getElementById("result");
+
+            if (!tiempo || weight <= 0 || distance <= 0) {
+                alert("Ingrese todos los valores correctamente.");
+                return;
+            }
+
+            const base = bases[tiempo] ?? 1;
+            const total = (distance * 0.5) * base;
+            resultElement.textContent = `$ ${total.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>
