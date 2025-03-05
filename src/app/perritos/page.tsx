@@ -33,7 +33,7 @@ function Page() {
             />
           )
         )}
-        <button disabled={isLoading} onClick={actualizar} className={`bg-blue-500 w-full mt-2 rounded-md hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+        <button disabled={isLoading} onClick={actualizar} className={`bg-blue-500 w-full mt-2 rounded-md hover:bg-blue-700 text-white font-bold py-2 px-4 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}>
             Actualizar
         </button>
       </div>
